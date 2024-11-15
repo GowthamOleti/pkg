@@ -250,15 +250,13 @@
   });
 
   function updateSendLink() {
-  const selectedServices = Array.from(checkboxes)
-    .filter(checkbox => checkbox.checked)
-    .map(checkbox => checkbox.dataset.name)
-    .join(', ');
+    const selectedServices = Array.from(checkboxes)
+      .filter(checkbox => checkbox.checked)
+      .map(checkbox => checkbox.dataset.name)
+      .join('%0A- ');
 
-  const mailto = `mailto:oletigowtham8803@gmail.com?subject=Selected Project Services&body=Hey Gowtham,%0A%0AThese are the packages I selected:%0A${selectedServices}%0A%0ATotal Price: ₹${totalPrice}`;
-  sendButton.href = mailto;
-}
-
+    const mailto = `mailto:oletigowtham8803@gmail.com?subject=Selected Project Services&body=Hey Gowtham,%0A%0AThese are the packages I selected:%0A- ${selectedServices}%0A%0ATotal Price: ₹${totalPrice}`;
+    sendButton.href = mailto;
   }
 
   function triggerConfetti() {
