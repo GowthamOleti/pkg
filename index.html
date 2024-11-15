@@ -223,6 +223,7 @@
   <p>© 2024 Gowtham Oleti. <a href="mailto:oletigowtham8803@gmail.com">Contact Me</a></p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
   const checkboxes = document.querySelectorAll('.checkbox');
   const totalPriceEl = document.getElementById('total-price');
@@ -236,6 +237,8 @@
 
       if (checkbox.checked) {
         totalPrice += price;
+        triggerConfetti(); // Show confetti
+        if (navigator.vibrate) navigator.vibrate(100); // Trigger vibration
       } else {
         totalPrice -= price;
       }
@@ -247,13 +250,23 @@
   });
 
   function updateSendLink() {
-    const selectedServices = Array.from(checkboxes)
-      .filter(checkbox => checkbox.checked)
-      .map(checkbox => checkbox.dataset.name)
-      .join(', ');
+  const selectedServices = Array.from(checkboxes)
+    .filter(checkbox => checkbox.checked)
+    .map(checkbox => checkbox.dataset.name)
+    .join(', ');
 
-    const mailto = `mailto:oletigowtham8803@gmail.com?subject=Selected Project Services&body=Total Price: ₹${totalPrice}%0ASelected Services: ${selectedServices}`;
-    sendButton.href = mailto;
+  const mailto = `mailto:oletigowtham8803@gmail.com?subject=Selected Project Services&body=Hey Gowtham,%0A%0AThese are the packages I selected:%0A${selectedServices}%0A%0ATotal Price: ₹${totalPrice}`;
+  sendButton.href = mailto;
+}
+
+  }
+
+  function triggerConfetti() {
+    confetti({
+      particleCount: 120,
+      spread: 80,
+      origin: { x: 0.5, y: 0.5 },
+    });
   }
 </script>
 
