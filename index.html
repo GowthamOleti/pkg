@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Breakdown</title>
+  <title>My Services</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -27,8 +28,37 @@
 
     header h1 {
       font-size: 2.4rem;
-      font-weight: 700;
+      font-weight: 500;
       color: #1d1d1f;
+    }
+
+    header a {
+      font-size: 1rem;
+      color: #007bff;
+      text-decoration: none;
+      margin-top: 0.5rem;
+      display: inline-block;
+    }
+
+    header a:hover {
+      text-decoration: underline;
+    }
+
+    .currency-toggle {
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    .currency-toggle label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #1d1d1f;
+    }
+
+    .currency-toggle input {
+      margin-left: 0.5rem;
+      transform: scale(1.2);
+      cursor: pointer;
     }
 
     main {
@@ -43,7 +73,7 @@
     h2 {
       font-size: 1.8rem;
       font-weight: 600;
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.5rem;
       text-align: center;
     }
 
@@ -61,20 +91,22 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    .section label {
+    .checkbox-wrapper {
       display: flex;
-      align-items: flex-start;
-      margin-bottom: 0.5rem;
+      align-items: center;
+      margin-bottom: 1rem;
     }
 
-    .section .checkbox {
+    .checkbox {
       margin-right: 1rem;
+      transform: scale(1.2);
+      cursor: pointer;
     }
 
     .section h3 {
       font-size: 1.4rem;
       font-weight: 600;
-      margin-bottom: 0.3rem;
+      margin: 0;
       color: #333;
       line-height: 1.4;
     }
@@ -82,14 +114,15 @@
     .price {
       font-size: 1.2rem;
       font-weight: 500;
-      color: #0071e3;
-      margin-top: 0.5rem;
+      color: #007bff;
+      margin-top: 1rem;
+      text-align: left;
     }
 
     .description {
       font-size: 1rem;
       color: #6e6e73;
-      margin-top: 0.8rem;
+      margin-top: 0.5rem;
       text-align: left;
       line-height: 1.6;
     }
@@ -100,16 +133,23 @@
       padding: 1.2rem;
       font-size: 1.6rem;
       font-weight: 700;
-      color: #0071e3;
+      color: #007bff;
       background-color: #f0f8ff;
       border-radius: 12px;
+    }
+
+    .monthly-info {
+      font-size: 1rem;
+      color: #007bff;
+      font-weight: 400;
+      margin-top: 0.5rem;
     }
 
     .send-button {
       display: block;
       margin: 1rem auto;
       padding: 1rem 2rem;
-      background-color: #0071e3;
+      background-color: #007bff;
       color: #ffffff;
       border: none;
       border-radius: 12px;
@@ -134,7 +174,7 @@
     }
 
     footer a {
-      color: #0071e3;
+      color: #007bff;
       text-decoration: none;
     }
 
@@ -147,73 +187,81 @@
 
 <header>
   <h1>Project Breakdown</h1>
+  <a href="https://www.gowthamoleti.com" target="_blank">www.gowthamoleti.com</a>
 </header>
 
 <main>
   <h2>Select Services</h2>
+  <div class="currency-toggle">
+    <label>
+      Show prices in Dollars ($)
+      <input type="checkbox" id="currency-toggle">
+    </label>
+  </div>
 
   <div class="section">
-    <label>
+    <div class="checkbox-wrapper">
       <input type="checkbox" class="checkbox" value="50000" data-name="App Design">
       <h3>App Design</h3>
-    </label>
+    </div>
     <p class="description">
       Design an intuitive and visually appealing application interface across platforms, ensuring responsiveness and consistency.
       Includes high-fidelity prototypes, developer handoff, and asset delivery.
     </p>
-    <div class="price">₹50,000</div>
+    <div class="price" data-price="50000">₹50,000</div>
   </div>
 
   <div class="section">
-    <label>
+    <div class="checkbox-wrapper">
       <input type="checkbox" class="checkbox" value="15000" data-name="Design Style Guidelines">
       <h3>Design Style Guidelines</h3>
-    </label>
+    </div>
     <p class="description">
       A cohesive visual identity with a defined color palette, typography system, and reusable components.
       These guidelines ensure brand consistency and ease of scaling across various platforms.
     </p>
-    <div class="price">₹15,000</div>
+    <div class="price" data-price="15000">₹15,000</div>
   </div>
 
   <div class="section">
-    <label>
+    <div class="checkbox-wrapper">
       <input type="checkbox" class="checkbox" value="15000" data-name="User Experience Design">
       <h3>User Experience Design</h3>
-    </label>
+    </div>
     <p class="description">
       Optimize user journeys with wireframes, flow diagrams, and interaction concepts.
       Usability testing is conducted to deliver enhancements that match user needs seamlessly.
     </p>
-    <div class="price">₹15,000</div>
+    <div class="price" data-price="15000">₹15,000</div>
   </div>
 
   <div class="section">
-    <label>
+    <div class="checkbox-wrapper">
       <input type="checkbox" class="checkbox" value="35000" data-name="Website Design and Development">
       <h3>Website Design and Development</h3>
-    </label>
+    </div>
     <p class="description">
       Build a responsive and modern website using no-code tools.
       Includes integration for forms, analytics, and cross-device optimization to deliver an impactful online presence.
     </p>
-    <div class="price">₹35,000</div>
+    <div class="price" data-price="35000">₹35,000</div>
   </div>
 
   <div class="section">
-    <label>
-      <input type="checkbox" class="checkbox" value="10000" data-name="Logo Design">
+    <div class="checkbox-wrapper">
+      <input type="checkbox" class="checkbox" value="12000" data-name="Logo Design">
       <h3>Logo Design</h3>
-    </label>
+    </div>
     <p class="description">
       Create a professional and memorable logo that resonates with your brand identity.
       Includes multiple concepts, iterations, and formats optimized for print and digital media.
     </p>
-    <div class="price">₹10,000</div>
+    <div class="price" data-price="12000">₹12,000</div>
   </div>
 
   <div class="total">
-    Total Package: ₹<span id="total-price">0</span>
+    Total Package: <span id="total-price">₹0</span>
+    <div class="monthly-info" id="monthly-info" style="display: none;"></div>
   </div>
 
   <a href="#" class="send-button" id="send-button">Send</a>
@@ -223,31 +271,47 @@
   <p>© 2024 Gowtham Oleti. <a href="mailto:oletigowtham8803@gmail.com">Contact Me</a></p>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
   const checkboxes = document.querySelectorAll('.checkbox');
   const totalPriceEl = document.getElementById('total-price');
+  const monthlyInfoEl = document.getElementById('monthly-info');
+  const currencyToggle = document.getElementById('currency-toggle');
   const sendButton = document.getElementById('send-button');
-
+  const prices = document.querySelectorAll('.price');
   let totalPrice = 0;
+  let inDollars = false;
 
-  checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
-      const price = parseInt(checkbox.value, 10);
+  const INRtoUSD = 0.012; // Conversion rate
 
-      if (checkbox.checked) {
-        totalPrice += price;
-        triggerConfetti(); // Show confetti
-        if (navigator.vibrate) navigator.vibrate(100); // Trigger vibration
-      } else {
-        totalPrice -= price;
-      }
+  function formatIndianNumber(num) {
+    const strNum = num.toString();
+    const lastThree = strNum.slice(-3);
+    const rest = strNum.slice(0, -3);
+    return rest.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + (rest ? ',' : '') + lastThree;
+  }
 
-      totalPriceEl.textContent = totalPrice;
+  function roundDownToNearestTen(num) {
+    return Math.floor(num / 10) * 10;
+  }
 
-      updateSendLink();
+  function triggerConfetti() {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { x: 0.5, y: 0.5 },
     });
-  });
+  }
+
+  function updatePrices() {
+    prices.forEach(price => {
+      const basePrice = parseInt(price.dataset.price, 10);
+      if (inDollars) {
+        price.textContent = `$${(basePrice * INRtoUSD).toFixed(2)}`;
+      } else {
+        price.textContent = `₹${formatIndianNumber(basePrice)}`;
+      }
+    });
+  }
 
   function updateSendLink() {
     const selectedServices = Array.from(checkboxes)
@@ -255,18 +319,56 @@
       .map(checkbox => checkbox.dataset.name)
       .join('%0A- ');
 
-    const mailto = `mailto:oletigowtham8803@gmail.com?subject=Selected Project Services&body=Hey Gowtham,%0A%0AThese are the packages I selected:%0A- ${selectedServices}%0A%0ATotal Price: ₹${totalPrice}`;
+    const mailto = `mailto:oletigowtham8803@gmail.com?subject=Selected Project Services&body=Hey Gowtham,%0A%0AThese are the packages I selected:%0A- ${selectedServices}%0A%0ATotal Price: ${inDollars ? '$' + (totalPrice * INRtoUSD).toFixed(2) : '₹' + formatIndianNumber(totalPrice)}`;
     sendButton.href = mailto;
   }
 
-  function triggerConfetti() {
-    confetti({
-      particleCount: 120,
-      spread: 80,
-      origin: { x: 0.5, y: 0.5 },
-    });
+  function updateTotal() {
+    totalPrice = Array.from(checkboxes)
+      .filter(checkbox => checkbox.checked)
+      .reduce((acc, checkbox) => acc + parseInt(checkbox.value, 10), 0);
+
+    if (inDollars) {
+      totalPriceEl.textContent = `$${(totalPrice * INRtoUSD).toFixed(2)}`;
+      if (totalPrice > 20000) {
+        const perMonth = roundDownToNearestTen((totalPrice * INRtoUSD) / 3);
+        monthlyInfoEl.style.display = 'block';
+        monthlyInfoEl.textContent = `$${perMonth}/month for 3 months`;
+      } else {
+        monthlyInfoEl.style.display = 'none';
+      }
+    } else {
+      totalPriceEl.textContent = `₹${formatIndianNumber(totalPrice)}`;
+      if (totalPrice > 20000) {
+        const perMonth = roundDownToNearestTen(totalPrice / 3);
+        monthlyInfoEl.style.display = 'block';
+        monthlyInfoEl.textContent = `₹${formatIndianNumber(perMonth)}/month for 3 months`;
+      } else {
+        monthlyInfoEl.style.display = 'none';
+      }
+    }
+
+    updateSendLink();
   }
+
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      updateTotal();
+      if (checkbox.checked) triggerConfetti();
+    });
+  });
+
+  currencyToggle.addEventListener('change', () => {
+    inDollars = currencyToggle.checked;
+    updatePrices();
+    updateTotal();
+  });
+
+  updatePrices();
 </script>
 
 </body>
 </html>
+
+
+
