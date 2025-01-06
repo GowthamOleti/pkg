@@ -188,6 +188,27 @@
     footer a:hover {
       text-decoration: underline;
     }
+
+    /* Gold styling for Complete Product Design */
+    .complete-product-design {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+      border: 1px solid rgba(255, 215, 0, 0.5);
+      color: #FFD700; /* Gold text for titles or key elements */
+      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+    }
+
+    .complete-product-design h3 {
+      color: #FFD700; /* Gold for the heading text */
+    }
+
+    .complete-product-design .price {
+      color: #FFC107; /* Slightly softer gold for the price */
+    }
+
+    .complete-product-design:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+    }
   </style>
 </head>
 <body>
@@ -266,24 +287,22 @@
     <div class="price" data-price="45000">₹45,000</div>
   </div>
 
-     <div class="section">
-  <div class="checkbox-wrapper">
-    <input type="checkbox" class="checkbox" value="185000" data-name="Complete Product Design">
-    <h3>Complete Product Design</h3>
+  <div class="section complete-product-design">
+    <div class="checkbox-wrapper">
+      <input type="checkbox" class="checkbox" value="185000" data-name="Complete Product Design">
+      <h3>Complete Product Design</h3>
+    </div>
+    <p class="description">
+      A holistic design solution covering UI/UX for applications, design style guidelines, website design, logo creation, and more. 
+      This package ensures a cohesive and seamless design experience across all touchpoints.
+    </p>
+    <div class="price" data-price="185000">₹1,85,000</div>
   </div>
-  <p class="description">
-    A holistic design solution covering UI/UX for applications, design style guidelines, website design, logo creation, and more. 
-    This package ensures a cohesive and seamless design experience across all touchpoints.
-  </p>
-  <div class="price" data-price="185000">₹1,85,000</div>
-</div>
 
   <div class="total">
     Total Package: <span id="total-price">₹0</span>
     <div class="monthly-info" id="monthly-info" style="display: none;"></div>
   </div>
- 
-
 
   <a href="#" class="send-button" id="send-button">Send</a>
 </main>
