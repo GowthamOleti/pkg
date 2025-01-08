@@ -189,44 +189,37 @@
       text-decoration: underline;
     }
 
-    /* Coupon Code Styling */
-    .coupon-box {
-      margin-top: 2rem;
-      text-align: center;
-    }
+   
 
-    .coupon-box input {
-      width: 80%;
-      padding: 1rem;
-      font-size: 1rem;
-      border: 2px dotted #FFFFFF;
-      border-radius: 12px;
-      background: transparent;
-      color: #FFFFFF;
-      text-align: center;
-      outline: none;
-    }
+  .coupon-box {
+  margin-top: 2rem;
+  text-align: center;
+}
 
-    .coupon-box {
-      margin-top: 2rem;
-      text-align: center;
-    }
+.coupon-box input {
+  display: block;
+  margin: 2rem auto;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  border: 2px dotted #FFFFFF;
+  border-radius: 16px;
+  background: transparent;
+  color: #FFFFFF;
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
 
-    .coupon-box input {
-      width: 80%;
-      padding: 1rem;
-      font-size: 1rem;
-      border: 2px dotted #FFFFFF;
-      border-radius: 12px;
-      background: transparent;
-      color: #FFFFFF;
-      text-align: center;
-      outline: none;
-    }
+.coupon-box input::placeholder {
+  color: #FFFFFF;
+}
 
-    .coupon-box input::placeholder {
-      color: #FFFFFF;
-    }
+.coupon-box input:hover {
+  background-color: #F2F2F2;
+  color: #007AFF;
+}
+
 
     .discounted-price {
       text-decoration: line-through;
