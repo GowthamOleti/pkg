@@ -189,25 +189,33 @@
       text-decoration: underline;
     }
 
-    /* Gold styling for Complete Product Design */
-    .complete-product-design {
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
-      border: 1px solid rgba(255, 215, 0, 0.5);
-      color: #FFD700; /* Gold text for titles or key elements */
-      box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+    /* Coupon Code Styling */
+    .coupon-box {
+      margin-top: 2rem;
+      text-align: center;
     }
 
-    .complete-product-design h3 {
-      color: #FFD700; /* Gold for the heading text */
+    .coupon-box input {
+      width: 80%;
+      padding: 1rem;
+      font-size: 1rem;
+      border: 2px dotted #FFFFFF;
+      border-radius: 12px;
+      background: transparent;
+      color: #FFFFFF;
+      text-align: center;
+      outline: none;
     }
 
-    .complete-product-design .price {
-      color: #FFC107; /* Slightly softer gold for the price */
+    .coupon-box input::placeholder {
+      color: #FFFFFF;
     }
 
-    .complete-product-design:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+    .discounted-price {
+      text-decoration: line-through;
+      font-size: 1rem;
+      color: #A6A6A6;
+      margin-right: 0.5rem;
     }
   </style>
 </head>
@@ -304,6 +312,10 @@
     <div class="monthly-info" id="monthly-info" style="display: none;"></div>
   </div>
 
+  <div class="coupon-box">
+    <input type="text" id="coupon-code" placeholder="Apply Coupon Code">
+  </div>
+
   <a href="#" class="send-button" id="send-button">Send</a>
 </main>
 
@@ -316,10 +328,12 @@
   const totalPriceEl = document.getElementById('total-price');
   const monthlyInfoEl = document.getElementById('monthly-info');
   const currencyToggle = document.getElementById('currency-toggle');
+  const couponCodeInput = document.getElementById('coupon-code');
   const sendButton = document.getElementById('send-button');
   const prices = document.querySelectorAll('.price');
   let totalPrice = 0;
   let inDollars = false;
+  let discountApplied = false;
 
   const INRtoUSD = 0.012; // Conversion rate
 
@@ -328,18 +342,6 @@
     const lastThree = strNum.slice(-3);
     const rest = strNum.slice(0, -3);
     return rest.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + (rest ? ',' : '') + lastThree;
-  }
-
-  function roundDownToNearestTen(num) {
-    return Math.floor(num / 10) * 10;
-  }
-
-  function triggerConfetti() {
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { x: 0.5, y: 0.5 },
-    });
   }
 
   function updatePrices() {
@@ -353,49 +355,48 @@
     });
   }
 
+  function updateTotal() {
+    totalPrice = Array.from(checkboxes)
+      .filter(checkbox => checkbox.checked)
+      .reduce((acc, checkbox) => acc + parseInt(checkbox.value, 10), 0);
+
+    let displayPrice = totalPrice;
+    if (discountApplied) {
+      displayPrice *= 0.8;
+    }
+
+    const formattedTotal = inDollars 
+      ? `$${(displayPrice * INRtoUSD).toFixed(2)}`
+      : `₹${formatIndianNumber(Math.round(displayPrice))}`;
+
+    totalPriceEl.innerHTML = discountApplied
+      ? `<span class="discounted-price">${inDollars ? `$${(totalPrice * INRtoUSD).toFixed(2)}` : `₹${formatIndianNumber(totalPrice)}`}</span>${formattedTotal}`
+      : formattedTotal;
+
+    updateSendLink();
+  }
+
   function updateSendLink() {
     const selectedServices = Array.from(checkboxes)
       .filter(checkbox => checkbox.checked)
       .map(checkbox => checkbox.dataset.name)
       .join('%0A- ');
 
-    const mailto = `mailto:oletigowtham8803@gmail.com?subject=Selected Project Services&body=Hey Gowtham,%0A%0AThese are the packages I selected:%0A- ${selectedServices}%0A%0ATotal Price: ${inDollars ? '$' + (totalPrice * INRtoUSD).toFixed(2) : '₹' + formatIndianNumber(totalPrice)}`;
+    const mailto = `mailto:oletigowtham8803@gmail.com?subject=Selected Project Services&body=Hey Gowtham,%0A%0AThese are the packages I selected:%0A- ${selectedServices}%0A%0ATotal Price: ${totalPriceEl.textContent}`;
     sendButton.href = mailto;
   }
 
-  function updateTotal() {
-    totalPrice = Array.from(checkboxes)
-      .filter(checkbox => checkbox.checked)
-      .reduce((acc, checkbox) => acc + parseInt(checkbox.value, 10), 0);
-
-    if (inDollars) {
-      totalPriceEl.textContent = `$${(totalPrice * INRtoUSD).toFixed(2)}`;
-      if (totalPrice > 20000) {
-        const perMonth = roundDownToNearestTen((totalPrice * INRtoUSD) / 3);
-        monthlyInfoEl.style.display = 'block';
-        monthlyInfoEl.textContent = `$${perMonth}/month for 3 months`;
-      } else {
-        monthlyInfoEl.style.display = 'none';
-      }
+  couponCodeInput.addEventListener('input', () => {
+    if (couponCodeInput.value === 'gow8803') {
+      discountApplied = true;
     } else {
-      totalPriceEl.textContent = `₹${formatIndianNumber(totalPrice)}`;
-      if (totalPrice > 20000) {
-        const perMonth = roundDownToNearestTen(totalPrice / 3);
-        monthlyInfoEl.style.display = 'block';
-        monthlyInfoEl.textContent = `₹${formatIndianNumber(perMonth)}/month for 3 months`;
-      } else {
-        monthlyInfoEl.style.display = 'none';
-      }
+      discountApplied = false;
     }
-
-    updateSendLink();
-  }
+    updateTotal();
+  });
 
   checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
-      updateTotal();
-      if (checkbox.checked) triggerConfetti();
-    });
+    checkbox.addEventListener('change', updateTotal);
   });
 
   currencyToggle.addEventListener('change', () => {
@@ -409,4 +410,3 @@
 
 </body>
 </html>
-
